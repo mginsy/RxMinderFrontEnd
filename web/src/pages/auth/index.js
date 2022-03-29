@@ -3,6 +3,15 @@ import { useDispatch } from 'react-redux'
 import { login, register } from '../../redux/user'
 
 import { useState } from 'react'
+import React, { Component } from 'react'
+import Select from 'react-select'
+import styled from "styled-components";
+
+import TextField from '@mui/material/TextField';
+import AdapterDateFns from '@mui/lab/AdapterDateFns';
+import LocalizationProvider from '@mui/lab/LocalizationProvider';
+import TimePicker from '@mui/lab/TimePicker';
+
 
 function Login() {
     const [email, setEmail] = useState('')
@@ -27,7 +36,7 @@ function Login() {
                             <div className="row h-100">
                                 <div className="text-center offset-md-3 col-md-6 my-auto">
                                     <h2>Sign In</h2>
-                                    <p>Achieve zero-waste today</p>
+                                    <p>View patient data here</p>
                                     <form onSubmit={onSubmit} className="auth">
                                         <input
                                             placeholder="your@email.com"
@@ -140,7 +149,7 @@ function Register() {
     )
 }
 
-function Learn() {
+function Test() {
     return (
         <div className="container">
             <div style={{backgroundColor:"#89e887"}} className="row">
@@ -263,4 +272,132 @@ function Learn() {
     )
 }
 
-export { Login, Register, Learn }
+const medOptions = [
+    { value: 'Lipitor', label: 'Lipitor' },
+    { value: 'Amoxil', label: 'Amoxil' },
+    { value: 'Prinivil', label: 'Prinivil' },
+    { value: 'Synthroid', label: 'Synthroid' },
+    { value: 'Ventolin', label: 'Ventolin' },
+    { value: 'Glucophage', label: 'Glucophage' },
+    { value: 'Norvasc', label: 'Norvasc' },
+    { value: 'Lopressor', label: 'Lopressor' },
+    { value: 'Losec', label: 'Losec' },
+    { value: 'Cozaar', label: 'Cozaar' },
+    { value: 'Zithromax', label: 'Zithromax' },
+    { value: 'Deltasone', label: 'Deltasone' },
+    { value: 'Advil', label: 'Advil'},
+    { value: 'Neurontin', label: 'Neurontin' },
+    { value: 'Flovent', label: 'Flovent' },
+    { value: 'Microzide', label: 'Microzide' },
+    { value: 'Zocor', label: 'Zocor' },
+    { value: 'Zoloft', label: 'Zoloft' },
+    { value: 'Singulair', label: 'Singulair' }
+];
+
+const dayOptions = [
+    { value: 'Sunday', label: 'Sunday' },
+    { value: 'Monday', label: 'Monday' },
+    { value: 'Tuesday', label: 'Tuesday' },
+    { value: 'Wednesday', label: 'Wednesday' },
+    { value: 'Thursday', label: 'Thursday' },
+    { value: 'Friday', label: 'Friday' },
+    { value: 'Saturday', label: 'Saturday' }
+];
+
+const Button = styled.button`
+  background-color: #f89d42;
+  color: black;
+  font-size: 20px;
+  padding: 10px 60px;
+  border-radius: 5px;
+  margin: 10px 0px;
+  cursor: pointer;
+`;
+
+function receieveSchedule() {
+    alert('Schedule Received');
+  }
+
+function Schedule() {
+    const [value, setValue] = React.useState(null);
+    
+
+    return (
+        <div className="container">
+            <div className="row">
+                <div className="col scheduler">
+                    <h3>Medication</h3>
+                    <Select className="selector" options={medOptions} placeholder="Select Medication..."/>
+                </div>
+                <div className="col scheduler">
+                    <h3>Schedule</h3>
+                    <div className="row">
+                        <div className="col">
+                            <LocalizationProvider dateAdapter={AdapterDateFns}>
+                                <TimePicker
+                                    label="Time"
+                                    value={value}
+                                    onChange={(newValue) => {
+                                    setValue(newValue);
+                                    }}
+                                    renderInput={(params) => <TextField {...params} />}
+                                />
+                            </LocalizationProvider>
+                        </div>
+                        <div className="col">
+                            <Select className="selector" isMulti options={dayOptions} placeholder="Select Days of The Week..."/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div className="row">
+                <div className="col scheduler">
+                    <h3>Patient Phone #</h3>
+                    <input type="text" name="patientPhone" />
+                </div>
+                <div className="col scheduler">
+                    <h3>Caregiver Phone #</h3>
+                    <input type="text" name="caregiverPhone" />
+                </div>
+            </div>
+            <div className="row">
+                <div className="col scheduler">
+                    <Button onClick={receieveSchedule}>
+                        Submit
+                    </Button>
+                </div>
+            </div>
+        </div>
+    )
+}
+
+function Monitor() {
+    return (
+        <div className="container">
+            <div className="primary mb-5" style={{ height: '78%'}}> 
+                <div className="container h-100">
+                    <div className="row h-100">
+                        <div className="col-md-5 my-auto">
+                            <h1 className="mb-3">Monitor</h1>
+                            <p>
+                                Our device works to provide an easy and modular solution
+                                to medication adherence issues for elderly patients
+                            </p>
+                        </div>
+                        <div className="offset-md-1 col-md-6 my-auto">
+    
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div className="HDTW">
+                <div className="text-center">
+                    <h3>How does this work?</h3>
+                    <p>We're glad you asked</p>
+                </div>
+            </div>
+        </div>
+    )
+}
+
+export { Login, Register, Schedule, Monitor, Test }

@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { login, logout } from '../redux/user'
 
 import Home from './home'
-import { Login, Register, Learn } from './auth'
+import { Login, Register, Schedule, Monitor, Test} from './auth'
 import Dash from './dash'
 import Setup from './setup'
 
@@ -37,11 +37,11 @@ function Navbar(props) {
                 {_.isEmpty(user) === true ? (
                     <>
                         <Nav className="mr-auto">
-                            <NavbarLink to="/about">About</NavbarLink>
-                            <NavbarLink to="/projects">Product</NavbarLink>
-                            <NavbarLink to="/learn">Learn</NavbarLink>
-                            <NavbarLink to={{ pathname: '/', hash: 'contact' }}>
-                                Contact
+                            <NavbarLink to="/schedule">Schedule</NavbarLink>
+                            <NavbarLink to="/monitor">Monitor</NavbarLink>
+                            <NavbarLink to="/test">Test</NavbarLink>
+                            <NavbarLink to={{ pathname: '/', hash: 'about' }}>
+                                About
                             </NavbarLink>
                         </Nav>
                         <Nav>
@@ -52,7 +52,7 @@ function Navbar(props) {
                     <>
                         <Nav className="mr-auto">
                             <NavbarLink to="/">Dashboard</NavbarLink>
-                            <NavbarLink to="/learn">Learn</NavbarLink>
+                            <NavbarLink to="/test">Test</NavbarLink>
                             <NavbarLink to="/profile">Profile</NavbarLink>
                             <NavbarLink to="/setup">Setup Device</NavbarLink>
                         </Nav>
@@ -94,9 +94,17 @@ function App() {
                         <Navbar fixed="top" />
                         <Register />
                     </Route>
-                    <Route exact path="/learn">
+                    <Route exact path="/test">
                         <Navbar />
-                        <Learn />
+                        <Test />
+                    </Route>
+                    <Route exact path="/monitor">
+                        <Navbar />
+                        <Monitor />
+                    </Route>
+                    <Route exact path="/schedule">
+                        <Navbar />
+                        <Schedule />
                     </Route>
                     <Route exact path="/">
                         <Navbar className="primary" />
@@ -113,9 +121,9 @@ function App() {
                         <Route exact path="/setup">
                             <Setup />
                         </Route>
-                        <Route exact path="/learn">
+                        <Route exact path="/test">
                             <Navbar />
-                            <Learn />
+                            <Test />
                         </Route>
                     </Switch>
                 </>

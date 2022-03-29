@@ -1,9 +1,11 @@
 :root {
-  --background-color: #fff;
+  --background-color: #f5e9c0;
+  --wild-color: #76C5D3;
+  --navbar-color: #f89d42;
   --text-color: #000;
-  --main-color: #89e887;
+  --main-color: #FAAB5B;
   --nav-link-color: #000;
-  --highlight-color: rgba(53, 255, 240, 0.45);
+  --highlight-color: #d67c21;
   --footer-color: #fff;
 }
 
@@ -56,8 +58,43 @@ a {
   color: var(--main-color);
 }
 
+.aboutTitle{
+  padding-top: 1.5%;
+}
+
+.HDTW{
+  padding-bottom: 2%;
+}
+
+.selector{
+  padding-top:2%;
+}
+
+.about{
+  background-color: var(--wild-color);
+}
+
+.scheduler{
+  justify-content: center;
+  text-align: center;
+  padding-top: 15%;
+}
+
+.col-4{
+  justify-content: center;
+  text-align: center;
+}
+
+.frontGif{
+  width: '20%';
+}
+
+.navbar {
+  background-color: var(--navbar-color);
+}
+
 .navbar.primary {
-  background-color: var(--main-color);
+  background-color: var(--navbar-color);
 }
 
 .navbar .navbar-brand {
@@ -133,7 +170,7 @@ a {
   padding-left: 5%;
   margin-top: 10%;
   margin-bottom: 3%;
-  background-color: #89e887;
+  background-color: #FAAB5B;
   border-radius: 2px;
 }
 
