@@ -100,7 +100,7 @@ function Register() {
                             <div className="row h-100">
                                 <div className="text-center offset-md-3 col-md-6 my-auto">
                                     <h2>Sign In</h2>
-                                    <p>Achieve zero-waste today</p>
+                                    <p>View patient data here</p>
                                     <form onSubmit={onSubmit} className="auth">
                                         <input
                                             placeholder="John Smith"
@@ -155,7 +155,7 @@ function Test() {
             <div style={{backgroundColor:"#89e887"}} className="row">
                 <div style={{paddingBottom: "5%", paddingTop:"5%"}} className="text-center offset-md-4">
                     <h2>Let's do better together</h2>
-                    <p>Achieve zero waste today</p>
+                    <p>View patient data here</p>
                 </div>
             </div>
                 <div style={{paddingTop: "5%"}} className="body text-color container">
@@ -314,20 +314,86 @@ const Button = styled.button`
   cursor: pointer;
 `;
 
-function receieveSchedule() {
-    alert('Schedule Received');
-  }
-
 function Schedule() {
-    const [value, setValue] = React.useState(null);
-    
+    const [medValue, setMedValue] = React.useState(null);
+    const [timeValue, setTimeValue] = React.useState(null);
+    const [daysValue, setDaysValue] = React.useState(null);
+
+    let patientPhoneInput = React.createRef();
+    let caregiverPhoneInput = React.createRef();
+
+    let onOnclickHandler = (e) => {
+        const patientNumStr = patientPhoneInput.current.value;
+        const caregiverNumStr = caregiverPhoneInput.current.value;
+        const patientNum = parseInt(patientNumStr);
+        const caregiverNum = parseInt(caregiverNumStr);
+
+        if (patientNumStr.length != 10 || (caregiverNumStr.length != 10 && caregiverNumStr.length != 0) || isNaN(patientNum)){
+            alert('Please enter a valid phone number. ex: 2137403211');
+            return;
+        }
+
+        if (patientNum === caregiverNum){
+            alert('Please enter two different phone numbers for patient and caregiver, or leave caregiver blank');
+            return;
+        }
+
+        let daysArray = [];
+        for (const dayValue of daysValue){
+            daysArray.push(dayValue.value);
+        }
+
+        console.log(daysArray)
+
+        if (daysArray.length === 0){
+            alert('Please fill out the day category');
+            return;
+        }
+
+        if (timeValue === null){
+            alert('Please fill out the time category');
+            return;
+        }
+
+        if (medValue === null){
+            alert('Please fill out the med category');
+            return;
+        }
+ 
+        const timeStr = timeValue.getHours() + ":" + timeValue.getMinutes();
+
+        const data = {
+            medication: medValue.value,
+            time: timeStr,
+            daysArr: daysArray,
+            patientPhone: patientNum,
+            caregiverPhone: caregiverNum
+        };
+
+        const requestOptions = {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(data)
+        };
+        let bruh = null;
+        fetch('https://rxminderbackend.herokuapp.com/add', requestOptions)
+        .then((response) => {
+            if(!response.ok) throw new Error(response.status);
+            else alert("Schedule successfully submitted!");
+          })
+    };
 
     return (
         <div className="container">
             <div className="row">
                 <div className="col scheduler">
                     <h3>Medication</h3>
-                    <Select className="selector" options={medOptions} placeholder="Select Medication..."/>
+                    <Select className="selector" 
+                            options={medOptions} 
+                            placeholder="Select Medication..."
+                            onChange={(newValue) => {
+                                setMedValue(newValue);
+                            }} />
                 </div>
                 <div className="col scheduler">
                     <h3>Schedule</h3>
@@ -336,16 +402,22 @@ function Schedule() {
                             <LocalizationProvider dateAdapter={AdapterDateFns}>
                                 <TimePicker
                                     label="Time"
-                                    value={value}
+                                    value={timeValue}
                                     onChange={(newValue) => {
-                                    setValue(newValue);
+                                        setTimeValue(newValue);
                                     }}
                                     renderInput={(params) => <TextField {...params} />}
                                 />
                             </LocalizationProvider>
                         </div>
                         <div className="col">
-                            <Select className="selector" isMulti options={dayOptions} placeholder="Select Days of The Week..."/>
+                            <Select className="selector" 
+                                    isMulti 
+                                    options={dayOptions} 
+                                    placeholder="Select Days of The Week..."
+                                    onChange={(newValue) => {
+                                        setDaysValue(newValue);
+                                    }}/>
                         </div>
                     </div>
                 </div>
@@ -353,16 +425,16 @@ function Schedule() {
             <div className="row">
                 <div className="col scheduler">
                     <h3>Patient Phone #</h3>
-                    <input type="text" name="patientPhone" />
+                    <input type="text" name="patientPhone" ref={patientPhoneInput} />
                 </div>
                 <div className="col scheduler">
                     <h3>Caregiver Phone #</h3>
-                    <input type="text" name="caregiverPhone" />
+                    <input type="text" name="caregiverPhone" ref={caregiverPhoneInput}/>
                 </div>
             </div>
             <div className="row">
                 <div className="col scheduler">
-                    <Button onClick={receieveSchedule}>
+                    <Button onClick={onOnclickHandler}>
                         Submit
                     </Button>
                 </div>
