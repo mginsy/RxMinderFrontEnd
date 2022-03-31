@@ -28,6 +28,7 @@
         "lodash": "^4.17.21",
         "lottie-react": "^2.1.0",
         "moment": "^2.29.1",
+        "random-datetime": "^1.0.1",
         "react": "^17.0.2",
         "react-bootstrap": "^1.5.0",
         "react-calendar": "^3.7.0",
