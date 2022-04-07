@@ -1,78 +1,70 @@
-# Trash
+# Getting Started with Create React App
 
-An IoT device that introduces a new information stream to households to incentivize sustainable consumption
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-### Prerequisites
+## Available Scripts
 
--   Node.js
--   npm
--   MongoDB
--   Redis
--   Arduino
+In the project directory, you can run:
 
-### Environment Variables
+### `yarn start`
 
-Create a `.env` file under `server/` with the following contents
+Runs the app in the development mode.\
+Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-```
-PORT=3000
-db_connection_url=mongodb://localhost/garbage
-```
+The page will reload if you make edits.\
+You will also see any lint errors in the console.
 
-Create a `constants.h` file under `device/` with the following contents
+### `yarn test`
 
-```c
-#define URL "<your web server url>"
-#define DEBUG_WIFI_SSID "<your wifi ssid>"
-#define DEBUG_WIFI_PASS "<your wifi pass>"
-```
+Launches the test runner in the interactive watch mode.\
+See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-Starting the Express server with
+### `yarn build`
 
-```
-$ npm run dev
-```
+Builds the app for production to the `build` folder.\
+It correctly bundles React in production mode and optimizes the build for the best performance.
 
-will load the environmental variables from `.env` into the process.
+The build is minified and the filenames include the hashes.\
+Your app is ready to be deployed!
 
-### How to Run
+See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-Install server packages
+### `yarn eject`
 
-```
-$ cd server
-$ npm i
-```
+**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
 
-Install client packages
+If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
 
-```
-$ cd web
-$ npm i
-```
+Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
 
-Start MongoDB
+You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
 
-```
-$ sudo mongod
-```
+## Learn More
 
-Start Redis (session cache)
+You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
-```
-$ redis-server
-```
+To learn React, check out the [React documentation](https://reactjs.org/).
 
-Start the Express server
+### Code Splitting
 
-```
-$ cd server
-$ npm run dev
-```
+This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
 
-Start the React server
+### Analyzing the Bundle Size
 
-```
-$ cd web
-$ npm start
-```
+This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+
+### Making a Progressive Web App
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+
+### Advanced Configuration
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+
+### Deployment
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+
+### `yarn build` fails to minify
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
