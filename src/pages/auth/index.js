@@ -244,14 +244,16 @@ function Schedule() {
             return;
         }
 
-        let daysArray = [];
+        let daysStr = "";
         for (const dayValue of daysValue){
-            daysArray.push(dayValue.value);
+            daysStr = daysStr + dayValue.value + " ";
         }
 
-        console.log(daysArray)
+        daysStr = daysStr.substring(0,daysStr.length-1)
 
-        if (daysArray.length === 0){
+        console.log(daysStr)
+
+        if (daysStr.length === 0){
             alert('Please fill out the day category');
             return;
         }
@@ -271,7 +273,7 @@ function Schedule() {
         const data = {
             medication: medValue.value,
             time: timeStr,
-            daysArr: daysArray,
+            dayStr: daysStr,
             patientPhone: patientNum,
             caregiverPhone: caregiverNum
         };
