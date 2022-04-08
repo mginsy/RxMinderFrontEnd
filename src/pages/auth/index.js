@@ -211,13 +211,13 @@ const medOptions = [
 ];
 
 const dayOptions = [
-    { value: 'Sunday', label: 'Sunday' },
-    { value: 'Monday', label: 'Monday' },
-    { value: 'Tuesday', label: 'Tuesday' },
-    { value: 'Wednesday', label: 'Wednesday' },
-    { value: 'Thursday', label: 'Thursday' },
-    { value: 'Friday', label: 'Friday' },
-    { value: 'Saturday', label: 'Saturday' }
+    { value: 7, label: 'Sunday' },
+    { value: 1, label: 'Monday' },
+    { value: 2, label: 'Tuesday' },
+    { value: 3, label: 'Wednesday' },
+    { value: 4, label: 'Thursday' },
+    { value: 5, label: 'Friday' },
+    { value: 6, label: 'Saturday' }
 ];
 
 function Schedule() {
@@ -244,16 +244,14 @@ function Schedule() {
             return;
         }
 
-        let daysStr = "";
+        let daysArr = [];
         for (const dayValue of daysValue){
-            daysStr = daysStr + dayValue.value + " ";
+            daysArr.push(dayValue);
         }
 
-        daysStr = daysStr.substring(0,daysStr.length-1)
+        console.log(daysArr)
 
-        console.log(daysStr)
-
-        if (daysStr.length === 0){
+        if (daysArr.length === 0){
             alert('Please fill out the day category');
             return;
         }
@@ -273,7 +271,7 @@ function Schedule() {
         const data = {
             medication: medValue.value,
             time: timeStr,
-            dayStr: daysStr,
+            dayArr: daysArr,
             patientPhone: patientNum,
             caregiverPhone: caregiverNum
         };
