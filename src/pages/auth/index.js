@@ -394,15 +394,18 @@ const CustomRedPickersDay = styled(PickersDay, {
   }));
 
 const outerTheme = createTheme({
-palette: {
-    primary: {
-    main: "#FAAB5B",
+    palette: {
+        primary: {
+        main: "#FAAB5B",
+        },
     },
-},
 });
 
 function Monitor() {
     const [value, setValue] = React.useState(new Date());
+
+    const [hasTaken, getTakenValue] = React.useState(null);
+    const [timePillTaken, getTimeTakenValue] = React.useState(null);
 
     const renderWeekPickerDay = (date, selectedDates, pickersDayProps) => {
         if (!value) {
@@ -412,12 +415,8 @@ function Monitor() {
 
         const green = Boolean(Math.round(Math.random()+.3));
         const red = !green;
-    
-        console.log(date);
-        console.log(green);
 
         if(green){
-            console.log("green");
             return (
                 <CustomGreenPickersDay
                   {...pickersDayProps}
@@ -427,7 +426,6 @@ function Monitor() {
               );
         }
         else{
-            console.log("red");
             return (
                 <CustomRedPickersDay
                   {...pickersDayProps}
@@ -436,29 +434,46 @@ function Monitor() {
                 />
               );
         }
-      };
+    };
+
+    fetch('https://rxminderbackend.herokuapp.com/getData', {
+        crossDomain:true,
+        method: 'GET',
+      })
+        .then(response => response.json()).then(responseJson => {
+            getTakenValue(responseJson.taken);
+            getTimeTakenValue(responseJson.timeTaken);
+            console.log(responseJson);
+        })
 
     return (
         <div className="container">
             <div className = "patientProgress">
                 <h1 className='text-center'>Patient Progress</h1>
             </div>
-            <div className='calendar-container'>
-                <ThemeProvider theme={outerTheme}>
-                    <LocalizationProvider dateAdapter={AdapterDateFns}>
-                        <StaticDatePicker
-                            orientation="landscape"
-                            openTo="day"
-                            label="Pill Schedule Monitor"
-                            value={value}
-                            onChange={(newValue) => {
-                            setValue(newValue);
-                            }}
-                            renderDay={renderWeekPickerDay}
-                            renderInput={(params) => <TextField {...params} />}
-                        />
-                    </LocalizationProvider>
-                </ThemeProvider>
+            <div className="row">
+                <div className="col">
+                    <div className='calendar-container'>
+                        <ThemeProvider theme={outerTheme}>
+                            <LocalizationProvider dateAdapter={AdapterDateFns}>
+                                <StaticDatePicker
+                                    orientation="landscape"
+                                    openTo="day"
+                                    label="Pill Schedule Monitor"
+                                    value={value}
+                                    onChange={(newValue) => {
+                                    setValue(newValue);
+                                    }}
+                                    renderDay={renderWeekPickerDay}
+                                    renderInput={(params) => <TextField {...params} />}
+                                />
+                            </LocalizationProvider>
+                        </ThemeProvider>
+                    </div>
+                </div>
+                <div className="col">
+                    <p className='text-center schText'>{hasTaken ? "Pill was taken at " + timePillTaken : 'Patient has not taken their medication yet today'}</p>
+                </div>
             </div>
         </div> //implement taken code here
     )
