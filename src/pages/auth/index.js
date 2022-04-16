@@ -472,7 +472,7 @@ function Monitor() {
                     </div>
                 </div>
                 <div className="col">
-                    <p className='text-center schText'>{hasTaken ? "Pill was taken at " + timePillTaken : 'Patient has not taken their medication yet today'}</p>
+                    <p className='text-center schText'>{hasTaken ? "Pill was taken at " + timePillTaken + " today": 'Patient has not taken their medication yet today'}</p>
                 </div>
             </div>
         </div> //implement taken code here
