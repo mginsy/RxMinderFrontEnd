@@ -75,7 +75,11 @@ a {
 }
 
 .calendar-container{
-  padding-top: 7%;
+  padding-top: 20%;
+}
+
+.schText{
+  padding-top: 45%;
 }
 
 .aboutTitle{
