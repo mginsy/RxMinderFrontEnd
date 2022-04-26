@@ -211,7 +211,7 @@ const medOptions = [
 ];
 
 const dayOptions = [
-    { value: 7, label: 'Sunday' },
+    { value: 0, label: 'Sunday' },
     { value: 1, label: 'Monday' },
     { value: 2, label: 'Tuesday' },
     { value: 3, label: 'Wednesday' },
@@ -472,7 +472,7 @@ function Monitor() {
                     </div>
                 </div>
                 <div className="col">
-                    <p className='text-center schText'>{hasTaken ? "Pill was taken at " + timePillTaken : 'Patient has not taken their medication yet today'}</p>
+                    <p className='text-center schText'>{hasTaken ? "Pill was taken at " + timePillTaken + " today": 'Patient has not taken their medication yet today'}</p>
                 </div>
             </div>
         </div> //implement taken code here
