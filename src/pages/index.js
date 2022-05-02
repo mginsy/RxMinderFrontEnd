@@ -7,8 +7,6 @@ import { login, logout } from '../redux/user'
 
 import Home from './home'
 import { Login, Register, Schedule, Monitor, Test} from './auth'
-import Dash from './dash'
-import Setup from './setup'
 
 import { Navbar as BSNavbar, Nav } from 'react-bootstrap'
 
@@ -54,7 +52,6 @@ function Navbar(props) {
                             <NavbarLink to="/">Dashboard</NavbarLink>
                             <NavbarLink to="/test">Test</NavbarLink>
                             <NavbarLink to="/profile">Profile</NavbarLink>
-                            <NavbarLink to="/setup">Setup Device</NavbarLink>
                         </Nav>
                         <Nav>
                             <NavbarLink
@@ -115,12 +112,6 @@ function App() {
                 <>
                     <Navbar className="primary" />
                     <Switch>
-                        <Route exact path="/">
-                            <Dash />
-                        </Route>
-                        <Route exact path="/setup">
-                            <Setup />
-                        </Route>
                         <Route exact path="/test">
                             <Navbar />
                             <Test />
