@@ -8,6 +8,8 @@ import reportWebVitals from './reportWebVitals'
 import { Provider } from 'react-redux'
 import store from './redux'
 
+
+// this renders all the visuals in the app and runs it
 ReactDOM.render(
     <React.StrictMode>
         <Provider store={store}>

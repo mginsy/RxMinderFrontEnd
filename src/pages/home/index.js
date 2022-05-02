@@ -6,6 +6,8 @@ import animationData from './pillanim.json'
 //https://lottiefiles.com/61069-medicine-pills
 //https://lottiefiles.com/38255-medicine-service
 
+
+// this is the home page it is just a simple HTML page with no confusing components. It has various text, image, and youtube link objects including a lottie animation which is the pill animation on the front page
 function Home() {
     return (
         <>

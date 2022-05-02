@@ -10,6 +10,8 @@ import { Login, Register, Schedule, Monitor, Test} from './auth'
 
 import { Navbar as BSNavbar, Nav } from 'react-bootstrap'
 
+//this is what creates the app in full. It creates the navbar, which connects all the pages together then creates the app itself which has all the routes to all the pages.
+
 function NavbarLink(props) {
     return (
         <li className="nav-item">

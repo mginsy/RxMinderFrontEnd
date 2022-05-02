@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux'
 import { login, register } from '../../redux/user'
 
 import { useState } from 'react'
-import React, { Component } from 'react'
+import React from 'react'
 import Select from 'react-select'
 import styled from "styled-components";
 
@@ -15,10 +15,9 @@ import DesktopTimePicker from '@mui/lab/DesktopTimePicker';
 import StaticDatePicker from '@mui/lab/StaticDatePicker';
 import PickersDay from '@mui/lab/PickersDay';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import randomDate from 'random-datetime'
 //import 'react-calendar/dist/Calendar.css';
 
-
+// this is the page for login. It can be further expanded to actually authenticate users but I did not go through the trouble of that for this project
 function Login() {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
@@ -82,6 +81,7 @@ function Login() {
     )
 }
 
+//this is the page for register if you click that in the login page. I also did not fully implement the register page, but it is nice to have that landing page
 function Register() {
     const [name, setName] = useState('')
     const [email, setEmail] = useState('')
@@ -155,6 +155,8 @@ function Register() {
     )
 }
 
+
+//this global button was created to have this style of button throughout the webapp
 const Button = styled.button`
   background-color: #f89d42;
   color: black;
@@ -165,6 +167,7 @@ const Button = styled.button`
   cursor: pointer;
 `;
 
+// this is the test page. it calls the calling function on the backend server to create a test call to ensure it is working. this is just a testing feature and would be removed for the final product. Luckily it went unused as it worked well using the particle
 function Test() {
     const requestOptions = {
         method: 'POST',
@@ -172,7 +175,7 @@ function Test() {
     };
 
     let onOnclickHandler = (e) => {
-        fetch('https://rxminderbackend.herokuapp.com/test', requestOptions)
+        fetch('https://rxminderbackend.herokuapp.com/call', requestOptions)
         .then((response) => {
             if(!response.ok) throw new Error(response.status);
             else alert("Testing!");
@@ -188,39 +191,41 @@ function Test() {
     )
 }
 
-const medOptions = [
-    { value: 'Lipitor', label: 'Lipitor' },
-    { value: 'Amoxil', label: 'Amoxil' },
-    { value: 'Prinivil', label: 'Prinivil' },
-    { value: 'Synthroid', label: 'Synthroid' },
-    { value: 'Ventolin', label: 'Ventolin' },
-    { value: 'Glucophage', label: 'Glucophage' },
-    { value: 'Norvasc', label: 'Norvasc' },
-    { value: 'Lopressor', label: 'Lopressor' },
-    { value: 'Losec', label: 'Losec' },
-    { value: 'Cozaar', label: 'Cozaar' },
-    { value: 'Zithromax', label: 'Zithromax' },
-    { value: 'Deltasone', label: 'Deltasone' },
-    { value: 'Advil', label: 'Advil'},
-    { value: 'Neurontin', label: 'Neurontin' },
-    { value: 'Flovent', label: 'Flovent' },
-    { value: 'Microzide', label: 'Microzide' },
-    { value: 'Zocor', label: 'Zocor' },
-    { value: 'Zoloft', label: 'Zoloft' },
-    { value: 'Singulair', label: 'Singulair' }
-];
-
-const dayOptions = [
-    { value: 0, label: 'Sunday' },
-    { value: 1, label: 'Monday' },
-    { value: 2, label: 'Tuesday' },
-    { value: 3, label: 'Wednesday' },
-    { value: 4, label: 'Thursday' },
-    { value: 5, label: 'Friday' },
-    { value: 6, label: 'Saturday' }
-];
-
+// the schedule page is made up of many text or selection fields. These fields can be filled out. When the button is pressed, it triggers onOnClickHandler, which checks all the fields for correct input and then submits it to the server if it is all correct using the /add endpoint
 function Schedule() {
+    const medOptions = [
+        { value: 'Lipitor', label: 'Lipitor' },
+        { value: 'Amoxil', label: 'Amoxil' },
+        { value: 'Prinivil', label: 'Prinivil' },
+        { value: 'Synthroid', label: 'Synthroid' },
+        { value: 'Ventolin', label: 'Ventolin' },
+        { value: 'Glucophage', label: 'Glucophage' },
+        { value: 'Norvasc', label: 'Norvasc' },
+        { value: 'Lopressor', label: 'Lopressor' },
+        { value: 'Losec', label: 'Losec' },
+        { value: 'Cozaar', label: 'Cozaar' },
+        { value: 'Zithromax', label: 'Zithromax' },
+        { value: 'Deltasone', label: 'Deltasone' },
+        { value: 'Advil', label: 'Advil'},
+        { value: 'Neurontin', label: 'Neurontin' },
+        { value: 'Flovent', label: 'Flovent' },
+        { value: 'Microzide', label: 'Microzide' },
+        { value: 'Zocor', label: 'Zocor' },
+        { value: 'Zoloft', label: 'Zoloft' },
+        { value: 'Singulair', label: 'Singulair' }
+    ];
+    
+    const dayOptions = [
+        { value: 0, label: 'Sunday' },
+        { value: 1, label: 'Monday' },
+        { value: 2, label: 'Tuesday' },
+        { value: 3, label: 'Wednesday' },
+        { value: 4, label: 'Thursday' },
+        { value: 5, label: 'Friday' },
+        { value: 6, label: 'Saturday' }
+    ];
+    
+    //states must be created for variables that can be changed on the website. these states + functions keep track of the variables as they change 
     const [medValue, setMedValue] = React.useState(null);
     const [timeValue, setTimeValue] = React.useState(null);
     const [daysValue, setDaysValue] = React.useState(null);
@@ -281,7 +286,6 @@ function Schedule() {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(data)
         };
-        let bruh = null;
         fetch('https://rxminderbackend.herokuapp.com/add', requestOptions)
         .then((response) => {
             if(!response.ok) throw new Error(response.status);
@@ -289,6 +293,7 @@ function Schedule() {
           })
     };
 
+    //this is where the webpage is created
     return (
         <div className="container">
             <div className="row">
@@ -349,59 +354,61 @@ function Schedule() {
     )
 }
 
-const CustomGreenPickersDay = styled(PickersDay, {
-    shouldForwardProp: (prop) =>
-      prop !== 'green' && prop !== 'red',
-  })(({ theme, green}) => ({
-      ...(green && {
-        borderRadius: 0,
-        backgroundColor: "#95dd83",
-        color: "#FFFFFF",
-        borderTopLeftRadius: '50%',
-        borderBottomLeftRadius: '50%',
-        borderTopRightRadius: '50%',
-        borderBottomRightRadius: '50%',
-        '&:hover, &:focus': {
-          backgroundColor: "#f89d42",
-          borderTopLeftRadius: '50%',
-          borderBottomLeftRadius: '50%',
-          borderTopRightRadius: '50%',
-          borderBottomRightRadius: '50%',
-        },
-      }),
-  }));
-
-const CustomRedPickersDay = styled(PickersDay, {
-    shouldForwardProp: (prop) =>
-      prop !== 'red',
-  })(({ theme, red}) => ({
-      ...(red && {
-        borderRadius: 0,
-        backgroundColor: "#e27979",
-        color: "#FFFFFF",
-        borderTopLeftRadius: '50%',
-        borderBottomLeftRadius: '50%',
-        borderTopRightRadius: '50%',
-        borderBottomRightRadius: '50%',
-        '&:hover, &:focus': {
-          backgroundColor: "#f89d42",
-          borderTopLeftRadius: '50%',
-          borderBottomLeftRadius: '50%',
-          borderTopRightRadius: '50%',
-          borderBottomRightRadius: '50%',
-        },
-      }),
-  }));
-
-const outerTheme = createTheme({
-    palette: {
-        primary: {
-        main: "#FAAB5B",
-        },
-    },
-});
-
+// this is the monitor page. it first has a bunch of styling options and creates the calendar object. It then gets the data from the server, seeing if the patient has taken their medication + what time it was taken. It then builds the webpage based on all of these styles and values
 function Monitor() {
+    const CustomGreenPickersDay = styled(PickersDay, {
+        shouldForwardProp: (prop) =>
+          prop !== 'green' && prop !== 'red',
+      })(({ theme, green}) => ({
+          ...(green && {
+            borderRadius: 0,
+            backgroundColor: "#95dd83",
+            color: "#FFFFFF",
+            borderTopLeftRadius: '50%',
+            borderBottomLeftRadius: '50%',
+            borderTopRightRadius: '50%',
+            borderBottomRightRadius: '50%',
+            '&:hover, &:focus': {
+              backgroundColor: "#f89d42",
+              borderTopLeftRadius: '50%',
+              borderBottomLeftRadius: '50%',
+              borderTopRightRadius: '50%',
+              borderBottomRightRadius: '50%',
+            },
+          }),
+      }));
+    
+    const CustomRedPickersDay = styled(PickersDay, {
+        shouldForwardProp: (prop) =>
+          prop !== 'red',
+      })(({ theme, red}) => ({
+          ...(red && {
+            borderRadius: 0,
+            backgroundColor: "#e27979",
+            color: "#FFFFFF",
+            borderTopLeftRadius: '50%',
+            borderBottomLeftRadius: '50%',
+            borderTopRightRadius: '50%',
+            borderBottomRightRadius: '50%',
+            '&:hover, &:focus': {
+              backgroundColor: "#f89d42",
+              borderTopLeftRadius: '50%',
+              borderBottomLeftRadius: '50%',
+              borderTopRightRadius: '50%',
+              borderBottomRightRadius: '50%',
+            },
+          }),
+      }));
+    
+    const outerTheme = createTheme({
+        palette: {
+            primary: {
+            main: "#FAAB5B",
+            },
+        },
+    });
+
+
     const [value, setValue] = React.useState(new Date());
 
     const [hasTaken, getTakenValue] = React.useState(null);
@@ -446,6 +453,7 @@ function Monitor() {
             console.log(responseJson);
         })
 
+    //webpage starts here
     return (
         <div className="container">
             <div className = "patientProgress">
@@ -479,4 +487,5 @@ function Monitor() {
     )
 }
 
+// all of these webpages get exported to be imported at higher up controls.
 export { Login, Register, Schedule, Monitor, Test }
